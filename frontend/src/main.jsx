@@ -11,18 +11,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/suporte" element={<ShowProcess />} />
-        <Route path="/suporte2" element={<ShowProcess />} />
-        <Route path="/financeiro" element={<ShowProcess />} />
-        <Route path="/comercial" element={<ShowProcess />} />
-        <Route path="/posvendas" element={<ShowProcess />} />
-        <Route path="/qualidade" element={<ShowProcess />} />
-        <Route path="/noc" element={<ShowProcess />} />
-        <Route path="/recursoshumanos" element={<ShowProcess />} />
-        <Route path="/almoxerifado" element={<ShowProcess />} />
-        <Route path="/tecnico" element={<ShowProcess />} />
-        <Route path="/cancelamento" element={<ShowProcess />} />
-        <Route path="/cancelamento" element={<ShowProcess />} />
+        <Route path="/setor/:id" element={<ShowProcess />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

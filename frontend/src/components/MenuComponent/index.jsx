@@ -5,37 +5,37 @@ export const MenuComponent = () => {
     <nav>
       <ul>
         <li>
-          <Link to="/suporte">Suporte</Link>
+          <Link to="/setor/suporte">Suporte</Link>
         </li>
         <li>
-          <Link to="/suporte2">Suporte 2</Link>
+          <Link to="/setor/suporte2">Suporte 2</Link>
         </li>
         <li>
-          <Link to="/financeiro">Financeiro</Link>
+          <Link to="/setor/financeiro">Financeiro</Link>
         </li>
         <li>
-          <Link to="/comercial">Comercial</Link>
+          <Link to="/setor/comercial">Comercial</Link>
         </li>
         <li>
-          <Link to="/posvendas">Pós Vendas</Link>
+          <Link to="/setor/posvendas">Pós Vendas</Link>
         </li>
         <li>
-          <Link to="/qualidade">Qualidade</Link>
+          <Link to="/setor/qualidade">Qualidade</Link>
         </li>
         <li>
-          <Link to="/noc">Network Operation Center</Link>
+          <Link to="/setor/noc">Network Operation Center</Link>
         </li>
         <li>
-          <Link to="/recursoshumanos">Recursos Humanos</Link>
+          <Link to="/setor/recursoshumanos">Recursos Humanos</Link>
         </li>
         <li>
-          <Link to="/almoxarifado">Almoxarifado</Link>
+          <Link to="/setor/almoxarifado">Almoxarifado</Link>
         </li>
         <li>
-          <Link to="/tecnico">Técnico</Link>
+          <Link to="/setor/tecnico">Técnico</Link>
         </li>
         <li>
-          <Link to="/cancelamento">Cancelamento</Link>
+          <Link to="/setor/cancelamento">Cancelamento</Link>
         </li>
       </ul>
     </nav>

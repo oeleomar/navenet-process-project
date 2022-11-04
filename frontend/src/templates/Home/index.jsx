@@ -1,6 +1,9 @@
+import { useEffect } from "react";
 import { MenuComponent } from "../../components/MenuComponent";
 
-export const Home = ({ data }) => {
-  console.log(data);
+export const Home = () => {
+  useEffect(() => {
+    document.title = "Home | Navenet";
+  });
   return <MenuComponent />;
 };

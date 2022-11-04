@@ -9,6 +9,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("combined"));
 app.use(express.static("public"));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Request-Width, Content-Type, Accept",
+  );
+  next();
+});
 
 app.use(router);
 mongoose.connect("mongodb://localhost:27017/process", () => app.listen(3000));
