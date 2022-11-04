@@ -17,6 +17,8 @@ export class UpdateProcessController {
 
     //Verificar dados
     const { ativo, setor, tipo, titulo, descricao } = body;
+    const realDescription = JSON.parse(descricao).data;
+
     if (!setor || !tipo || !titulo) {
       return new AppError("Informações não enviadas");
     }
@@ -54,7 +56,7 @@ export class UpdateProcessController {
             setor,
             tipo,
             titulo,
-            descricao,
+            descricao: realDescription,
             video,
             documento,
             documentosAntigos,
@@ -70,7 +72,7 @@ export class UpdateProcessController {
             setor,
             tipo,
             titulo,
-            descricao,
+            descricao: realDescription,
             documento,
             documentosAntigos,
           },
@@ -85,7 +87,7 @@ export class UpdateProcessController {
             setor,
             tipo,
             titulo,
-            descricao,
+            descricao: realDescription,
             video,
           },
         );
@@ -99,7 +101,7 @@ export class UpdateProcessController {
         setor,
         tipo,
         titulo,
-        descricao,
+        descricao: realDescription,
       },
     );
 
