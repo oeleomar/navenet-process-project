@@ -25,7 +25,6 @@ export const ProcessComponent = ({ data }) => {
       <VideoComponent data={video} />
       {descricao
         ? descricao.map((desc) => {
-            console.log(desc);
             if (desc.type === "header")
               return <HeaderComponent data={desc} key={desc.id} />;
 
