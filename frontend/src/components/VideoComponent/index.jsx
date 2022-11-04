@@ -33,6 +33,10 @@ function usePlayerState($videoPlayer) {
     $videoPlayer.current.currentTime =
       ($videoPlayer.current.duration / 100) * currentPercentage;
 
+    playerState.playing
+      ? $videoPlayer.current.play()
+      : $videoPlayer.current.pause();
+
     setPlayerState({
       ...playerState,
       percentage: currentPercentage,
@@ -59,7 +63,12 @@ export const VideoComponent = ({ data }) => {
 
   return (
     <div>
-      <video height={300} ref={$videoPlayer} onTimeUpdate={handleTimeUpdate}>
+      <video
+        height={300}
+        ref={$videoPlayer}
+        onTimeUpdate={handleTimeUpdate}
+        onClick={toggleVideoPlay}
+      >
         <source src={videoURL} type="video/mp4" />
       </video>
       <div className="controls">
