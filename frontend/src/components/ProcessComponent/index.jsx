@@ -1,6 +1,7 @@
 import { HeaderComponent } from "../HeaderComponent";
 import { ListComponent } from "../ListComponent";
 import { ParagraphComponent } from "../ParagraphComponent";
+import { VideoComponent } from "../VideoComponent";
 
 export const ProcessComponent = ({ data }) => {
   const {
@@ -17,10 +18,11 @@ export const ProcessComponent = ({ data }) => {
   if (!ativo) return;
 
   return (
-    <>
+    <div>
       <h2>{titulo}</h2>
       <span>{setor}</span>
       <span>{tipo}</span>
+      <VideoComponent data={video} />
       {descricao
         ? descricao.map((desc) => {
             console.log(desc);
@@ -34,6 +36,6 @@ export const ProcessComponent = ({ data }) => {
               return <ListComponent data={desc} key={desc.id} />;
           })
         : ""}
-    </>
+    </div>
   );
 };

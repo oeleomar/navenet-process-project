@@ -1,9 +1,9 @@
-export const ListComponent = ({ data: { data } }) => {
+export const ListComponent = ({ data: { data, id } }) => {
   if (data.style === "unordered") {
     return (
       <ul>
         {data.items.map((val) => (
-          <li key={val}>{val}</li>
+          <li key={val + id} dangerouslySetInnerHTML={{ __html: val }}></li>
         ))}
       </ul>
     );
@@ -11,7 +11,10 @@ export const ListComponent = ({ data: { data } }) => {
     return (
       <ol>
         {data.items.map((val) => (
-          <li key={Math.random() + val}>{val}</li>
+          <li
+            key={Math.random() + val}
+            dangerouslySetInnerHTML={{ __html: val }}
+          ></li>
         ))}
       </ol>
     );

@@ -1,3 +1,3 @@
 export const ParagraphComponent = ({ data: { data } }) => {
-  return <p>{data.text}</p>;
+  return <p dangerouslySetInnerHTML={{ __html: data.text }}></p>;
 };

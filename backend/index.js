@@ -3,6 +3,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import { router } from "./src/routes/index.js";
 import * as dotenv from "dotenv";
+import helmet from "helmet";
 
 const app = express();
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use((req, res, next) => {
   );
   next();
 });
+app.use(helmet());
 
 app.use(router);
 mongoose.connect("mongodb://localhost:27017/process", () => app.listen(3000));
