@@ -15,11 +15,12 @@ export class CreateProcessController {
     const video = files.video ? files.video[0].filename : "";
     const documento = files.file ? files.file[0].filename : "";
 
+    const realDescription = JSON.parse(descricao).data;
     const process = await Process.create({
       ativo,
       titulo,
       tipo,
-      descricao,
+      descricao: realDescription,
       setor,
       video,
       documento,
