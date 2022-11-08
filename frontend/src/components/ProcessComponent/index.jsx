@@ -35,6 +35,11 @@ export const ProcessComponent = ({ data }) => {
               return <ListComponent data={desc} key={desc.id} />;
           })
         : ""}
+
+      <iframe
+        src={`http://localhost:3000/docs/${documento}`}
+        frameBorder="0"
+      ></iframe>
     </div>
   );
 };
