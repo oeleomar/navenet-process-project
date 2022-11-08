@@ -9,8 +9,8 @@ const __dirname = path.dirname(__filename);
 
 export class DeleteProcessController {
   async handle(id) {
-    if (!id) return new AppError("Processo não encontrado", 404);
     const data = await Process.findById(id);
+
     try {
       const deleted = await Process.deleteOne({ id });
       if (deleted.deletedCount === 0)

@@ -50,6 +50,11 @@ processRoute.get("/:setor", async (req, res) => {
   const { setor } = req.params;
   try {
     const data = await getProcessController.handle(setor);
+
+    if (data instanceof AppError) {
+      return res.status(data.statusCode).json(data);
+    }
+
     return res.json(data);
   } catch (e) {
     return res.status(500).json(new AppError("Internal server error", 500));
@@ -95,7 +100,6 @@ processRoute.put(
 //Delete
 processRoute.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(id);
 
   if (!id)
     return res.status(404).json(new AppError("Processo não encontrado", 404));

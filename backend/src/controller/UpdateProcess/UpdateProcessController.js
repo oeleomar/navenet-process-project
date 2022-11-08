@@ -35,17 +35,18 @@ export class UpdateProcessController {
 
       if (video) {
         const { video: videoAntigo } = process;
-        removeFiles(
-          path.resolve(
-            __dirname,
-            "..",
-            "..",
-            "..",
-            "public",
-            "videos",
-            videoAntigo,
-          ),
-        );
+        if (videoAntigo)
+          removeFiles(
+            path.resolve(
+              __dirname,
+              "..",
+              "..",
+              "..",
+              "public",
+              "videos",
+              videoAntigo,
+            ),
+          );
       }
 
       if (documento && video) {
