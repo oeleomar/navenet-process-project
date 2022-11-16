@@ -8,6 +8,7 @@ import { removeFiles } from "../utils/removeFiles.js";
 import { GetProcessController } from "../controller/GetProcess/GetProcessController.js";
 import { UpdateProcessController } from "../controller/UpdateProcess/UpdateProcessController.js";
 import { DeleteProcessController } from "../controller/DeleteProcess/DeleteProcessController.js";
+import { GetSingleProcessController } from "../controller/GetSingleProcess/GetSingleProcessController.js";
 
 const processRoute = Router();
 
@@ -15,6 +16,7 @@ const createProcessController = new CreateProcessController();
 const getProcessController = new GetProcessController();
 const updateProcessController = new UpdateProcessController();
 const deleteProcessController = new DeleteProcessController();
+const getSingleProcessController = new GetSingleProcessController();
 
 //Create
 processRoute.post(
@@ -49,6 +51,7 @@ processRoute.post(
 //Read one setor
 processRoute.get("/:setor", async (req, res) => {
   const { setor } = req.params;
+  console.log("Entrei no setor", setor);
   try {
     const data = await getProcessController.handle(setor);
 
@@ -56,11 +59,15 @@ processRoute.get("/:setor", async (req, res) => {
       return res.status(data.statusCode).json(data);
     }
 
-    return res.json(data);
+    return res.json({ data });
   } catch (e) {
     console.log(e);
     return res.status(500).json(new AppError("Internal server error", 500));
   }
+});
+
+processRoute.get("/:setor/:id", async (req, res) => {
+  getSingleProcessController.handle(req, res);
 });
 
 //Update

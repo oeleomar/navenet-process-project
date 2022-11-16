@@ -1,7 +1,7 @@
-import { Heading } from 'components/Heading';
+import { Menu } from 'components/Menu';
 
 function Home() {
-  return <Heading />;
+  return <Menu />;
 }
 
 export default Home;

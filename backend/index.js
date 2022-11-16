@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 app.use(helmet());
 
 app.use(router);
-mongoose.connect(
-  "mongodb://admin:Eleomar-1907@localhost:27017/process?authMechanism=DEFAULT",
-  () => app.listen(3000),
-);
+mongoose.connect("mongodb://localhost:27017/process", () => {
+  console.log("Conectado");
+  app.listen(3001);
+});
