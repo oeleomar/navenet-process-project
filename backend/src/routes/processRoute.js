@@ -40,6 +40,7 @@ processRoute.post(
 
       return res.status(201).json(process);
     } catch (e) {
+      console.log(e);
       return res.status(500).json(new AppError("Internal server error", 500));
     }
   },
@@ -57,6 +58,7 @@ processRoute.get("/:setor", async (req, res) => {
 
     return res.json(data);
   } catch (e) {
+    console.log(e);
     return res.status(500).json(new AppError("Internal server error", 500));
   }
 });
