@@ -3,9 +3,10 @@ export const theme = {
     primary: "#3B3E99",
     secondary: "#292C6F",
     redPrimary: "#FF2E34",
-    redTransparent: "(254, 46, 52, 0.5);",
+    redTransparent: "rgba(254, 46, 52, 0.5);",
     white: "#FFFFFF",
     darkWhite: "#F0F0F0",
+    darkWhite2: "#D9D9D9",
     black: "#7B7B7B",
     darkBlack: "#222222",
   },
@@ -36,5 +37,8 @@ export const theme = {
     xxlarge: "4.8rem",
     huge: "5.6rem",
     xhuge: "6.4rem",
+  },
+  shadows: {
+    small: "0px 4px 4px rgba(0,0,0,0.25)",
   },
 } as const;

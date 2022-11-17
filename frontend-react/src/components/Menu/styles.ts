@@ -1,9 +1,7 @@
 import styled, { css } from "styled-components";
 
 export const Nav = styled.nav`
-  ${({ theme }) => css`
-    margin-top: 1px;
-  `}
+  ${({ theme }) => css``}
 `;
 
 export const Ul = styled.ul`

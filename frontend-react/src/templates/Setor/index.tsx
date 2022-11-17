@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { SectionComponent } from "../../components/SectionComponent";
+import { TitleComponent } from "../../components/TitleComponent";
 import config from "../../config";
 import * as Styled from "./styles";
 
@@ -23,19 +25,30 @@ export const Setor = () => {
     };
     fetchData();
   }, [param]);
+
   if (!data) {
-    return <h1>Carregando</h1>;
+    return (
+      <SectionComponent>
+        <TitleComponent title="Carregando..." />
+      </SectionComponent>
+    );
   }
 
   if (data.length === 0) {
-    return <h1>Sem dados cadastrados</h1>;
+    return (
+      <SectionComponent>
+        <TitleComponent title="Nenhum dado cadastrado" />
+      </SectionComponent>
+    );
   }
 
   return (
     <Styled.Wrapper>
-      {data.map((val: DataSetor) => (
-        <h1>{val.titulo}</h1>
-      ))}
+      <SectionComponent>
+        {data.map((val: DataSetor) => (
+          <TitleComponent title={val.titulo} />
+        ))}
+      </SectionComponent>
     </Styled.Wrapper>
   );
 };
