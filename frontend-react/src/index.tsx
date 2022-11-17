@@ -11,6 +11,7 @@ import { Page404 } from "./templates/Page404";
 import { Setor } from "./templates/Setor";
 import { Header } from "./components/Header";
 import { Home } from "./templates/Home";
+import { Processo } from "./templates/Processo";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -22,10 +23,10 @@ root.render(
         <Header />
         <GlobalStyles />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/:setor" element={<Setor />} />
-          <Route path="/:setor/:id" element={<Setor />} />
           <Route path="*" element={<Page404 />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/setor/:setor" element={<Setor />} />
+          <Route path="/setor/:setor/:id" element={<Processo />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

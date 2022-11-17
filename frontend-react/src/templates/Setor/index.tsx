@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { MenuProcess } from "../../components/MenuProcess";
 import { SectionComponent } from "../../components/SectionComponent";
 import { TitleComponent } from "../../components/TitleComponent";
 import config from "../../config";
@@ -45,9 +46,11 @@ export const Setor = () => {
   return (
     <Styled.Wrapper>
       <SectionComponent>
-        {data.map((val: DataSetor) => (
-          <TitleComponent title={val.titulo} />
-        ))}
+        <TitleComponent title="Processos" />
+        {data.map((val) => {
+          if (!val.ativo) return "";
+          return <MenuProcess title={val.titulo} key={val.id} {...val} />;
+        })}
       </SectionComponent>
     </Styled.Wrapper>
   );

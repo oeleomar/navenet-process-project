@@ -7,6 +7,9 @@ export const paths = [
   { slug: "suporte", pathName: "Suporte" },
   { slug: "suporte", pathName: "Suporte" },
   { slug: "suporte", pathName: "Suporte" },
+  { slug: "suporte", pathName: "Suporte" },
+  { slug: "suporte", pathName: "Suporte" },
+  { slug: "suporte", pathName: "Suporte" },
 ];
 
 export const pathsNext = [

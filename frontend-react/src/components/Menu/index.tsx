@@ -12,7 +12,7 @@ export const Menu = () => {
     <Styled.Nav>
       <Styled.Ul>
         {paths.map((path) => (
-          <MenuLinks href={path.slug} pathName={path.pathName} />
+          <MenuLinks href={`/setor/${path.slug}`} pathName={path.pathName} />
         ))}
       </Styled.Ul>
     </Styled.Nav>

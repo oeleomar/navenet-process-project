@@ -1,7 +1,7 @@
 export const theme = {
   colors: {
     primary: "#3B3E99",
-    secondary: "#292C6F",
+    secondary: "#292C6E",
     redPrimary: "#FF2E34",
     redTransparent: "rgba(254, 46, 52, 0.5);",
     white: "#FFFFFF",
@@ -15,10 +15,10 @@ export const theme = {
       default: "'Roboto', sans-serif",
     },
     sizes: {
-      xsmall: "8rem",
+      xsmall: "1.2rem",
       small: "1.6rem",
       medium: "2.0rem",
-      large: "3.2rem",
+      large: "2.6rem",
       xlarge: "4.0rem",
       xxlarge: "4.8rem",
       huge: "5.6rem",
@@ -40,5 +40,7 @@ export const theme = {
   },
   shadows: {
     small: "0px 4px 4px rgba(0,0,0,0.25)",
+    medium:
+      "4px 4px 10px rgba(0, 0, 0, 0.25), -4px -4px 10px rgba(0, 0, 0, 0.25);",
   },
 } as const;

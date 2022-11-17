@@ -17,4 +17,8 @@ export const GlobalStyles = createGlobalStyle`
     font-family: ${theme.font.family.default};
   }
 
+  a {
+    text-decoration: none;
+  }
+
 `;
