@@ -9,12 +9,33 @@ export type VideoPlayerProps = {
 };
 
 const usePlayerState = ($videoPlayer: any) => {
-  const [playerState, setPlayerState] = useState({ playing: false });
+  const [playerState, setPlayerState] = useState({
+    playing: false,
+    percentage: 0,
+  });
+
   const toggleVideoPlay = () => {
     setPlayerState({ ...playerState, playing: !playerState.playing });
   };
 
+  const handleTimeUpdate = () => {
+    const currentPercentage =
+      ($videoPlayer.current.currentTime / $videoPlayer.current.duration) * 100;
+    setPlayerState({ ...playerState, percentage: currentPercentage });
+  };
+
+  const handleChangeVideoPercentage = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const currentPercentage = Number(event.target.value);
+    $videoPlayer.current.currentTime =
+      ($videoPlayer.current.duration / 100) * currentPercentage;
+
+    setPlayerState({ ...playerState, percentage: currentPercentage });
+  };
+
   useEffect(() => {
+    if (!$videoPlayer.current) return;
     playerState.playing
       ? $videoPlayer.current.play()
       : $videoPlayer.current.pause();
@@ -23,12 +44,19 @@ const usePlayerState = ($videoPlayer: any) => {
   return {
     playerState,
     toggleVideoPlay,
+    handleTimeUpdate,
+    handleChangeVideoPercentage,
   };
 };
 
 export const VideoPlayer = ({ video = "" }: VideoPlayerProps) => {
   const $videoPlayer = useRef<any>(null);
-  const { playerState, toggleVideoPlay } = usePlayerState($videoPlayer);
+  const {
+    playerState,
+    toggleVideoPlay,
+    handleTimeUpdate,
+    handleChangeVideoPercentage,
+  } = usePlayerState($videoPlayer);
 
   if (!video) {
     return (
@@ -42,11 +70,8 @@ export const VideoPlayer = ({ video = "" }: VideoPlayerProps) => {
     <>
       <Styled.Video
         ref={$videoPlayer}
-        onTimeUpdate={() => {
-          const currentPercentage =
-            ($videoPlayer.current.currentTime / $videoPlayer.current.duration) *
-            100;
-        }}
+        onTimeUpdate={handleTimeUpdate}
+        onClick={toggleVideoPlay}
       >
         <Styled.Source src={`${config.url}${config.slugVideo}${video}`} />
       </Styled.Video>
@@ -54,7 +79,13 @@ export const VideoPlayer = ({ video = "" }: VideoPlayerProps) => {
         <Styled.ButtonControl onClick={toggleVideoPlay}>
           {playerState.playing ? <Pause size={32} /> : <Play size={32} />}
         </Styled.ButtonControl>
-        <Styled.InputControl type="range" min={0} max={100} />
+        <Styled.InputControl
+          type="range"
+          min={0}
+          max={100}
+          value={playerState.percentage}
+          onChange={handleChangeVideoPercentage}
+        />
         <Styled.SelectControl>
           {[1, 2, 3].map((val) => (
             <Styled.SelectOptionControl key={`speedChange_${val}`}>

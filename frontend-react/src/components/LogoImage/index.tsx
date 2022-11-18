@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import config from "../../config";
 import * as Styled from "./styles";
 
 export type LogoImageProps = {};
@@ -16,7 +17,7 @@ export const LogoImage = () => {
     <Styled.Wrapper>
       <Link to="/" onClick={handleClick}>
         <Styled.Image
-          src="./assets/img/logo.svg"
+          src={`${config.url}${config.slugImages}logo.svg`}
           alt="Logo da empresa Navenet"
         />
       </Link>

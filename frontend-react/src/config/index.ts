@@ -4,4 +4,5 @@ export default {
   slugProcess: "process/",
   slugVideo: "videos/",
   slugPop: "docs/",
+  slugImages: "images/",
 };

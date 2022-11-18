@@ -4,12 +4,6 @@ export const paths = [
   { slug: "financeiro", pathName: "Financeiro" },
   { slug: "comercial", pathName: "Comercial" },
   { slug: "tecnico", pathName: "Técnico" },
-  { slug: "suporte", pathName: "Suporte" },
-  { slug: "suporte", pathName: "Suporte" },
-  { slug: "suporte", pathName: "Suporte" },
-  { slug: "suporte", pathName: "Suporte" },
-  { slug: "suporte", pathName: "Suporte" },
-  { slug: "suporte", pathName: "Suporte" },
 ];
 
 export const pathsNext = [

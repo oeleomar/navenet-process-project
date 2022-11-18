@@ -21,8 +21,12 @@ export const Setor = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await axios(config.url + config.slugProcess + param.setor);
-      setData(data.data.data);
+      try {
+        const data = await axios(config.url + config.slugProcess + param.setor);
+        setData(data.data.data);
+      } catch (e) {
+        //
+      }
     };
     fetchData();
   }, [param]);

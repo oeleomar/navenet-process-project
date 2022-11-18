@@ -13,31 +13,45 @@ export const Processo = () => {
   const [covered, setCovered] = useState(false);
   const [state, setState] = useState("video");
   const [data, setData] = useState(null);
+  const [error, setError] = useState("");
   const params = useParams();
   const { setor, id } = params;
 
   useEffect(() => {
-    const fetchData = async () => {
-      const raw = (
-        await axios(`${config.url}${config.slugProcess}${setor}/${id}`)
-      ).data;
-      setData(raw);
-    };
-    fetchData();
+    try {
+      const fetchData = async () => {
+        const raw = (
+          await axios(`${config.url}${config.slugProcess}${setor}/${id}`)
+        ).data;
+        setData(raw);
+      };
+      fetchData();
+    } catch (e) {
+      console.log(e);
+      setError("Um erro ocorreu, tente novamente mais tarde.");
+    }
   }, [setor, id]);
 
   useEffect(() => {
-    console.log(covered);
     if (!covered) {
       setState("video");
     } else {
       setState("pop");
     }
   }, [covered]);
-  console.log(data);
 
   if (!data) {
-    return <h1>Processo não encontrado</h1>;
+    return (
+      <SectionComponent>
+        <ContentSection>
+          <Styled.H1error>
+            Processo não encontrado. Um erro ocorreu, entre em contato com o
+            Administrador
+            <Link to="/">Retornar para HOME</Link>
+          </Styled.H1error>
+        </ContentSection>
+      </SectionComponent>
+    );
   }
 
   return (
@@ -63,7 +77,7 @@ export const Processo = () => {
           {state === "video" ? (
             <VideoComponent {...(data as ProcessProps)} />
           ) : (
-            <PopComponent />
+            <PopComponent {...(data as ProcessProps)} />
           )}
         </ContentSection>
       </SectionComponent>
