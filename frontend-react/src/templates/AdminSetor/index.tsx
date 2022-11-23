@@ -1,20 +1,19 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { Upload } from "@styled-icons/bootstrap/Upload";
 import { MenuProcess } from "../../components/MenuProcess";
 import { SectionComponent } from "../../components/SectionComponent";
 import { TitleComponent } from "../../components/TitleComponent";
 import config from "../../config";
+import { DataSetor } from "../Setor";
 import * as Styled from "./styles";
 
-export interface DataSetor {
-  ativo: boolean;
-  titulo: string;
-  setor: string;
-  id: string;
-}
+export type AdminSetorProps = {
+  title?: string;
+};
 
-export const Setor = () => {
+export const AdminSetor = ({ title }: AdminSetorProps) => {
   const param = useParams();
   const [data, setData] = useState<DataSetor[] | null>([]);
 
@@ -49,10 +48,18 @@ export const Setor = () => {
   return (
     <Styled.Wrapper>
       <SectionComponent>
-        <TitleComponent title="Processos" />
+        <Styled.MainContainer>
+          <TitleComponent title="Processos" />
+          <Link to="/admin">
+            <Styled.ButtonAdd>
+              <Upload size={20} />
+              NOVO UPLOAD
+            </Styled.ButtonAdd>
+          </Link>
+        </Styled.MainContainer>
         {data.map((val) => {
           if (!val.ativo) return "";
-          return <MenuProcess title={val.titulo} key={val.id} {...val} />;
+          return <MenuProcess title={val.titulo} key={val.id} {...val} admin />;
         })}
       </SectionComponent>
     </Styled.Wrapper>

@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { AdminDeleteTool } from "../AdminDeleteTool";
+import { AdminEditTool } from "../AdminEditTool";
 import { MenuDescriptionProcess } from "../MenuDescriptionProcess";
 import { MenuTitleProcess } from "../MenuTitleProcess";
 import * as Styled from "./styles";
@@ -17,7 +19,18 @@ export const MenuProcess = ({
   id,
 }: MenuProcessProps) => {
   if (admin) {
-    return <h1>Admin</h1>;
+    return (
+      <Styled.Wrapper>
+        <Link to={`/admin/${setor}/${id}`}>
+          <MenuTitleProcess title={title} />
+          <MenuDescriptionProcess />
+        </Link>
+        <div className="container-tools">
+          <AdminEditTool />
+          <AdminDeleteTool />
+        </div>
+      </Styled.Wrapper>
+    );
   }
 
   return (
