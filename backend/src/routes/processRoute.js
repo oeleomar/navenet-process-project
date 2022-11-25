@@ -2,13 +2,14 @@ import multer from "multer";
 import fs from "fs";
 import { Router } from "express";
 import { multerConfig } from "../config/multer.js";
-import { CreateProcessController } from "../controller/CreateProcess/CreateProcessController.js";
 import { AppError } from "../errors/AppError.js";
 import { removeFiles } from "../utils/removeFiles.js";
-import { GetProcessController } from "../controller/GetProcess/GetProcessController.js";
-import { UpdateProcessController } from "../controller/UpdateProcess/UpdateProcessController.js";
-import { DeleteProcessController } from "../controller/DeleteProcess/DeleteProcessController.js";
-import { GetSingleProcessController } from "../controller/GetSingleProcess/GetSingleProcessController.js";
+import { GetProcessController } from "../controller/process/GetProcess/GetProcessController.js";
+import { CreateProcessController } from "../controller/process/CreateProcess/CreateProcessController.js";
+import { UpdateProcessController } from "../controller/process/UpdateProcess/UpdateProcessController.js";
+import { DeleteProcessController } from "../controller/process/DeleteProcess/DeleteProcessController.js";
+import { GetSingleProcessController } from "../controller/process/GetSingleProcess/GetSingleProcessController.js";
+import { checkToken } from "../middleware/checkToken.js";
 
 const processRoute = Router();
 
@@ -21,6 +22,7 @@ const getSingleProcessController = new GetSingleProcessController();
 //Create
 processRoute.post(
   "/",
+  checkToken,
   multer(multerConfig).fields([
     { name: "file", maxCount: 1 },
     { name: "video", maxCount: 1 },
@@ -73,6 +75,7 @@ processRoute.get("/:setor/:id", async (req, res) => {
 //Update
 processRoute.put(
   "/:id",
+  checkToken,
   multer(multerConfig).fields([
     { name: "file", maxCount: 1 },
     { name: "video", maxCount: 1 },
@@ -107,7 +110,7 @@ processRoute.put(
 );
 
 //Delete
-processRoute.delete("/:id", async (req, res) => {
+processRoute.delete("/:id", checkToken, async (req, res) => {
   const { id } = req.params;
 
   if (!id)
@@ -124,4 +127,5 @@ processRoute.delete("/:id", async (req, res) => {
     return res.status(500).json(new AppError("Internal server error", 500));
   }
 });
+
 export { processRoute };

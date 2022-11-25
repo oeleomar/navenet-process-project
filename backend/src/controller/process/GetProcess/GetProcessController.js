@@ -1,5 +1,5 @@
-import { AppError } from "../../errors/AppError.js";
-import Process from "../../models/process/Process.js";
+import { AppError } from "../../../errors/AppError.js";
+import Process from "../../../models/process/Process.js";
 
 export class GetProcessController {
   async handle(setor) {

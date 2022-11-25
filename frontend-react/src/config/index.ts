@@ -5,4 +5,5 @@ export default {
   slugVideo: "videos/",
   slugPop: "docs/",
   slugImages: "images/",
+  slugAdmin: "admin/",
 };

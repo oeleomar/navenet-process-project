@@ -5,6 +5,7 @@ import * as Styled from "./styles";
 import config from "../../config";
 import { FormEvent, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export type LoginProps = {
   admin?: boolean;
@@ -19,15 +20,25 @@ export const Login = ({ admin }: LoginProps) => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage("");
-    if (user.length < 7 || password.length < 7) {
-      console.log("entrei");
-      setErrorMessage("Usuário e senha deve conter 8 dígitos");
-      console.log(errorMessage === "");
+    if (password.length < 7)
+      return setErrorMessage("Usuário e senha deve conter 8 dígitos");
+
+    try {
+      const result = await axios.post(
+        `${config.url}${config.slugAdmin}/auth/login`,
+        {
+          usuario: user,
+          senha: password,
+        },
+      );
+      localStorage.setItem("token", result.data.token);
+      setState(true);
+    } catch (err: any) {
+      setErrorMessage(err.response.data.msg);
     }
-    if (errorMessage === "") setState(true);
   };
 
   useEffect(() => {
