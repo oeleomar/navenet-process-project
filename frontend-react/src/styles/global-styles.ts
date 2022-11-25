@@ -75,6 +75,7 @@ export const GlobalStyles = createGlobalStyle`
       color: ${theme.colors.darkWhite};
       height: 4rem;
       cursor: pointer;
+      border: none;
     }
 
     .Button.red {

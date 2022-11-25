@@ -32,7 +32,11 @@ export class LoginAdminUserController {
 
       res
         .status(200)
-        .json({ msg: "Autenticação realizada com sucesso", token });
+        .json({
+          msg: "Autenticação realizada com sucesso",
+          token,
+          user: user.nome,
+        });
     } catch (err) {
       return res.status(500).json({ msg: "Internal server Error" });
     }

@@ -41,7 +41,7 @@ export const MenuProcess = ({
                 </AlertDialog.Title>
                 <AlertDialog.Description className="AlertDialogDescription">
                   Com essa ação você irá apagar todo o processo e todos os
-                  arquivos relacionados com o mesmo.
+                  arquivos relacionados com ao mesmo.
                 </AlertDialog.Description>
                 <div
                   style={{

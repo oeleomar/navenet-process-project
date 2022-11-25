@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Upload } from "@styled-icons/bootstrap/Upload";
 import { MenuProcess } from "../../components/MenuProcess";
 import { SectionComponent } from "../../components/SectionComponent";
@@ -50,9 +50,9 @@ export const AdminSetor = ({ title }: AdminSetorProps) => {
       <SectionComponent>
         <Styled.MainContainer>
           <TitleComponent title="Processos" />
-          <Link to="/admin">
+          <Link to={`/admin/setor/${param.setor}/new`}>
             <Styled.ButtonAdd>
-              <Upload size={20} />
+              <Upload size={16} />
               NOVO UPLOAD
             </Styled.ButtonAdd>
           </Link>

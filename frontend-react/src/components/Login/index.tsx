@@ -35,6 +35,7 @@ export const Login = ({ admin }: LoginProps) => {
         },
       );
       localStorage.setItem("token", result.data.token);
+      localStorage.setItem("user", result.data.user);
       setState(true);
     } catch (err: any) {
       setErrorMessage(err.response.data.msg);

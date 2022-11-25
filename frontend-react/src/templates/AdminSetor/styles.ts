@@ -17,7 +17,7 @@ export const MainContainer = styled.div`
 
 export const ButtonAdd = styled.button`
   ${({ theme }) => css`
-    width: 20rem;
+    width: 12rem;
     height: 6rem;
     background-color: ${theme.colors.primary};
     color: ${theme.colors.darkWhite};
@@ -26,12 +26,13 @@ export const ButtonAdd = styled.button`
     cursor: pointer;
     font-weight: 500;
     font-family: inherit;
-    font-size: ${theme.font.sizes.small};
+    font-size: calc(${theme.font.sizes.small} - 0.2rem);
     display: flex;
     justify-content: center;
     align-items: center;
+
     > svg {
-      margin-right: 5px;
+      margin-right: 2px;
     }
   `}
 `;
