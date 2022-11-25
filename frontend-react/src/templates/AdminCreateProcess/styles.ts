@@ -43,7 +43,11 @@ export const ButtonAdd = styled.button`
 `;
 
 export const ContainerAdd = styled.div`
-  ${({ theme }) => css``}
+  ${({ theme }) => css`
+    margin: 1.8rem 0;
+    display: flex;
+    width: 100%;
+  `}
 `;
 
 export const ContainerDescription = styled.div`
@@ -52,7 +56,7 @@ export const ContainerDescription = styled.div`
     background-color: ${theme.colors.darkWhite};
     box-shadow: ${theme.shadows.medium};
     border-radius: 1rem;
-    max-width: 75%;
+    width: 70%;
 
     > label {
       display: block;
@@ -61,6 +65,7 @@ export const ContainerDescription = styled.div`
       font-size: calc(${theme.font.sizes.small} - 0.4rem);
       color: ${theme.colors.black};
     }
+
     > input {
       margin-bottom: 2rem;
       width: 100%;
@@ -88,4 +93,38 @@ export const Input = styled.input`
 
 export const Label = styled.label`
   ${({ theme }) => css``}
+`;
+
+export const Editor = styled.div`
+  ${({ theme }) => css`
+    background-color: ${theme.colors.white};
+  `}
+`;
+
+export const ContainerOptions = styled.div`
+  ${({ theme }) => css`
+    width: 25%;
+  `}
+`;
+
+export const OptionTitle = styled.h3`
+  ${({ theme }) => css`
+    font-size: calc(${theme.font.sizes.small} - 0.3rem);
+    font-weight: 700;
+    margin-bottom: 1.7rem;
+  `}
+`;
+
+export const OptionLabel = styled.label`
+  ${({ theme }) => css`
+    font-weight: 700;
+    color: ${theme.colors.black};
+  `}
+`;
+
+export const OptionInputRadio = styled.input`
+  ${({ theme }) => css`
+    margin: 0.6rem;
+    margin-left: 0;
+  `}
 `;
