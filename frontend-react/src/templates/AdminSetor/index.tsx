@@ -40,7 +40,15 @@ export const AdminSetor = ({ title }: AdminSetorProps) => {
   if (data.length === 0) {
     return (
       <SectionComponent>
-        <TitleComponent title="Nenhum dado cadastrado" />
+        <Styled.MainContainer>
+          <TitleComponent title="Nenhum processo encontrado" />
+          <Link to={`/admin/setor/${param.setor}/new`}>
+            <Styled.ButtonAdd>
+              <Upload size={16} />
+              NOVO UPLOAD
+            </Styled.ButtonAdd>
+          </Link>
+        </Styled.MainContainer>
       </SectionComponent>
     );
   }

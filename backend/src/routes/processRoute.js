@@ -33,12 +33,12 @@ processRoute.post(
       if (req.files.video) removeFiles(req.files.video[0].path);
       return res.status(422).json({ error: req.validationFile });
     }
-
+    console.log(req.files);
     try {
       const process = await createProcessController.handle(req.body, req.files);
       if (process instanceof AppError) {
-        if (req.files.file) removeFiles(req.files.file[0].path);
-        if (req.files.video) removeFiles(req.files.video[0].path);
+        if (req.files && req.files.file) removeFiles(req.files.file[0].path);
+        if (req.files && req.files.video) removeFiles(req.files.video[0].path);
         return res.status(400).json({ error: process });
       }
 

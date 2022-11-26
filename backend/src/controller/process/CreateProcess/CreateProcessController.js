@@ -12,18 +12,17 @@ export class CreateProcessController {
     const alreadyExistProcess = await Process.findOne({ setor, titulo });
     if (alreadyExistProcess) return new AppError("Processo Já Existente");
 
-    const video = files.video ? files.video[0].filename : "";
-    const documento = files.file ? files.file[0].filename : "";
+    const video = files ? (files.video ? files.video[0].filename : "") : "";
+    const documento = files ? (files.file ? files.file[0].filename : "") : "";
 
-    const realDescription = JSON.parse(descricao).data;
     const process = await Process.create({
       ativo,
       titulo,
       tipo,
-      descricao: realDescription,
+      descricao,
       setor,
-      video,
-      documento,
+      video: video ? video : "",
+      documento: documento ? documento : "",
     });
 
     return process;

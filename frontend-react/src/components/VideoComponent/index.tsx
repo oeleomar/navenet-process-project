@@ -21,17 +21,13 @@ export const VideoComponent = ({
   video,
   ...rest
 }: ProcessProps) => {
+  console.log(video);
   return (
     <Styled.Wrapper>
-      <VideoPlayer video={video} />
+      <VideoPlayer video={video} key={_id} />
       {descricao.length > 0
         ? descricao.map((val: any) => (
-            <VideoTextComponent
-              id={val.id}
-              data={val.data}
-              type={val.type}
-              key={val.id}
-            />
+            <VideoTextComponent data={val} key={Math.random() * 1000} />
           ))
         : ""}
     </Styled.Wrapper>

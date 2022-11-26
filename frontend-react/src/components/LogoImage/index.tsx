@@ -15,9 +15,6 @@ export const LogoImage = () => {
       childs[i].classList.remove("active");
     }
   };
-
-  console.log(locate);
-
   return (
     <Styled.Wrapper>
       <Link to={locate === "admin" ? "/admin" : "/"} onClick={handleClick}>

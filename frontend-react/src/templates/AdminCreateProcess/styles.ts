@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.form`
   ${({ theme }) => css`
     padding: 4.5rem 10rem;
   `}
@@ -22,7 +22,7 @@ export const MainContainer = styled.div`
 
 export const ButtonAdd = styled.button`
   ${({ theme }) => css`
-    width: 12rem;
+    width: 13rem;
     height: 6rem;
     background-color: ${theme.colors.primary};
     color: ${theme.colors.darkWhite};
@@ -57,6 +57,7 @@ export const ContainerDescription = styled.div`
     box-shadow: ${theme.shadows.medium};
     border-radius: 1rem;
     width: 70%;
+    max-height: 44rem;
 
     > label {
       display: block;
@@ -103,7 +104,16 @@ export const Editor = styled.div`
 
 export const ContainerOptions = styled.div`
   ${({ theme }) => css`
-    width: 25%;
+    width: 27%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    > form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
   `}
 `;
 
@@ -126,5 +136,46 @@ export const OptionInputRadio = styled.input`
   ${({ theme }) => css`
     margin: 0.6rem;
     margin-left: 0;
+  `}
+`;
+
+export const InputArchive = styled.input`
+  ${({ theme }) => css`
+    display: none;
+  `}
+`;
+
+export const LabelFile = styled.label`
+  ${({ theme }) => css`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    width: 15rem;
+    height: 3.8rem;
+    background: ${theme.colors.black};
+    color: ${theme.colors.darkWhite};
+    border-radius: 1.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 0px 4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+    margin-bottom: 0.6rem;
+
+    > svg {
+      margin-right: 0.8rem;
+    }
+  `}
+`;
+
+export const InputOptions = styled.input`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 4rem;
+    font-size: ${theme.font.sizes.small};
+    font-family: inherit;
+    border-radius: 1rem;
+    border: 1px solid #cecece;
   `}
 `;
