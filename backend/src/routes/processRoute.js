@@ -112,20 +112,10 @@ processRoute.put(
 //Delete
 processRoute.delete("/:id", checkToken, async (req, res) => {
   const { id } = req.params;
-
   if (!id)
     return res.status(404).json(new AppError("Processo não encontrado", 404));
 
-  try {
-    const deleted = await deleteProcessController.handle(id);
-    if (deleted instanceof AppError) {
-      return res.status(deleted.statusCode).json(deleted);
-    }
-
-    return res.status(200).json({ msg: deleted });
-  } catch (e) {
-    return res.status(500).json(new AppError("Internal server error", 500));
-  }
+  await deleteProcessController.handle(req, res, id);
 });
 
 export { processRoute };

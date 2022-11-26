@@ -1,36 +1,44 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import { removeFiles } from "../../../utils/removeFiles.js";
 import { AppError } from "../../../errors/AppError.js";
 import Process from "../../../models/process/Process.js";
+import { removeFiles } from "../../../utils/removeFiles.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export class DeleteProcessController {
-  async handle(id) {
-    const data = await Process.findById(id);
-
+  async handle(req, res, id) {
+    console.log(id);
     try {
-      const deleted = await Process.deleteOne({ id });
-      if (deleted.deletedCount === 0)
-        return new AppError("Não foi possível deletar o processo", 400);
+      const data = await Process.findById(id);
+      if (!data)
+        return res.status(404).json({ msg: "Processo não encontrado" });
 
-      //
+      const deleted = await Process.findByIdAndRemove({ _id: id });
       const video = data.video;
       const documento = data.documento;
       const documentosAntigos = data.documentosAntigos;
 
-      if (video) {
-        removeFiles(
-          path.resolve(__dirname, "..", "..", "..", "public", "videos", video),
-        );
-      }
-
-      if (documento) {
+      if (video !== "") {
         removeFiles(
           path.resolve(
             __dirname,
+            "..",
+            "..",
+            "..",
+            "..",
+            "public",
+            "videos",
+            video,
+          ),
+        );
+      }
+      if (documento !== "") {
+        removeFiles(
+          path.resolve(
+            __dirname,
+            "..",
             "..",
             "..",
             "..",
@@ -44,14 +52,23 @@ export class DeleteProcessController {
       if (documentosAntigos.length > 0) {
         documentosAntigos.forEach((val) => {
           removeFiles(
-            path.resolve(__dirname, "..", "..", "..", "public", "docs", val),
+            path.resolve(
+              __dirname,
+              "..",
+              "..",
+              "..",
+              "..",
+              "public",
+              "docs",
+              val,
+            ),
           );
         });
       }
 
-      return "Arquivo apagado com sucesso";
+      return res.status(200).json({ msg: "Apagado com sucesso" });
     } catch (e) {
-      return new AppError("Processo não encontrado", 404);
+      return res.status(500).json({ msg: "Internal server error" });
     }
   }
 }

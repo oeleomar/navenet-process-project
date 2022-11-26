@@ -8,6 +8,7 @@ import * as AlertDialog from "@radix-ui/react-alert-dialog";
 import * as Styled from "./styles";
 import axios from "axios";
 import config from "../../config";
+import { useEffect, useState } from "react";
 
 export type MenuProcessProps = {
   title: string;
@@ -22,6 +23,8 @@ export const MenuProcess = ({
   setor,
   id,
 }: MenuProcessProps) => {
+  const [deleted, setDeleted] = useState(false);
+
   const handleDelete = async (e: any) => {
     const token = localStorage.getItem("token");
     const configHeaders = {
@@ -29,17 +32,21 @@ export const MenuProcess = ({
         authorization: `Bearer ${token}`,
       },
     };
-    console.log(config.url + config.slugProcess + id);
     try {
       const result = await axios.delete(
         config.url + config.slugProcess + id,
         configHeaders,
       );
+      setDeleted(true);
       alert("Processo apagado com sucesso");
     } catch (e) {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    if (deleted) document.location.reload();
+  }, [deleted]);
 
   if (admin) {
     return (
