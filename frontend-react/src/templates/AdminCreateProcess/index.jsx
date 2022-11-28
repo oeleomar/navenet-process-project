@@ -5,7 +5,7 @@ import * as Styled from "./styles";
 import { SectionComponent } from "../../components/SectionComponent";
 import { TitleComponent } from "../../components/TitleComponent";
 import { GoBackSetor } from "../../components/GoBackSetor";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Editor } from "../../components/Editor";
 import { ProcessOptionsContainer } from "../../components/ProcessOptionsContainer";
 import axios from "axios";
@@ -201,7 +201,7 @@ export const AdminCreateProcess = () => {
               <Styled.OptionTitle>Vídeo</Styled.OptionTitle>
               <Styled.LabelFile htmlFor="archiveVideo">
                 <Upload size={15} />
-                Enviar Vídeo
+                {video ? "Selecionado" : "Enviar Vídeo"}
               </Styled.LabelFile>
               <Styled.InputArchive
                 type="file"
@@ -216,7 +216,7 @@ export const AdminCreateProcess = () => {
               <Styled.OptionTitle>Documento</Styled.OptionTitle>
               <Styled.LabelFile htmlFor="archiveDocument">
                 <Upload size={15} />
-                Enviar Documento
+                {documento ? "Selecionado" : "Enviar Documento"}
               </Styled.LabelFile>
               <Styled.InputArchive
                 type="file"

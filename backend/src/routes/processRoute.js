@@ -33,7 +33,6 @@ processRoute.post(
       if (req.files.video) removeFiles(req.files.video[0].path);
       return res.status(422).json({ error: req.validationFile });
     }
-    console.log(req.files);
     try {
       const process = await createProcessController.handle(req.body, req.files);
       if (process instanceof AppError) {
@@ -44,7 +43,6 @@ processRoute.post(
 
       return res.status(201).json(process);
     } catch (e) {
-      console.log(e);
       return res.status(500).json(new AppError("Internal server error", 500));
     }
   },
@@ -53,7 +51,6 @@ processRoute.post(
 //Read one setor
 processRoute.get("/:setor", async (req, res) => {
   const { setor } = req.params;
-  console.log("Entrei no setor", setor);
   try {
     const data = await getProcessController.handle(setor);
 
@@ -63,7 +60,6 @@ processRoute.get("/:setor", async (req, res) => {
 
     return res.json({ data });
   } catch (e) {
-    console.log(e);
     return res.status(500).json(new AppError("Internal server error", 500));
   }
 });
@@ -103,7 +99,6 @@ processRoute.put(
 
       return res.json({ data: "Atualizado com sucesso", statusCode: 200 });
     } catch (e) {
-      console.log(e);
       return res.status(500).json(new AppError("Internal server error", 500));
     }
   },
@@ -112,8 +107,7 @@ processRoute.put(
 //Delete
 processRoute.delete("/:id", checkToken, async (req, res) => {
   const { id } = req.params;
-  if (!id)
-    return res.status(404).json(new AppError("Processo não encontrado", 404));
+  if (!id) return res.status(404).json(new AppError("ID não enviado", 422));
 
   await deleteProcessController.handle(req, res, id);
 });
