@@ -9,7 +9,11 @@ import { ProcessProps, VideoComponent } from "../../components/VideoComponent";
 import config from "../../config";
 import * as Styled from "./styles";
 
-export const Processo = () => {
+type ProcessoProps = {
+  admin?: boolean;
+};
+
+export const Processo = ({ admin = false }) => {
   const [covered, setCovered] = useState(false);
   const [state, setState] = useState("video");
   const [data, setData] = useState(null);
@@ -27,7 +31,6 @@ export const Processo = () => {
       };
       fetchData();
     } catch (e) {
-      console.log(e);
       setError("Um erro ocorreu, tente novamente mais tarde.");
     }
   }, [setor, id]);
@@ -58,9 +61,15 @@ export const Processo = () => {
     <Styled.Wrapper>
       <SectionComponent>
         <Styled.MenuOptions>
-          <Link to={`/setor/${setor}`}>
-            <GoBackSetor />
-          </Link>
+          {admin ? (
+            <Link to={`/admin/setor/${setor}`}>
+              <GoBackSetor />
+            </Link>
+          ) : (
+            <Link to={`/setor/${setor}`}>
+              <GoBackSetor />
+            </Link>
+          )}
           <Styled.Label>
             <Styled.Video className="video" covered={covered}>
               Video

@@ -80,11 +80,12 @@ processRoute.put(
     if (req.validationFile) {
       if (req.files.file) removeFiles(req.files.file[0].path);
       if (req.files.video) removeFiles(req.files.video[0].path);
-      return res.status(422).json({ error: req.validationFile });
+      return res.status(422).json({ msg: req.validationFile });
     }
 
     const { id } = req.params;
-    try {
+    await updateProcessController.handle(req, res, id);
+    /* try {
       const data = await updateProcessController.handle(
         id,
         req.body,
@@ -100,7 +101,7 @@ processRoute.put(
       return res.json({ data: "Atualizado com sucesso", statusCode: 200 });
     } catch (e) {
       return res.status(500).json(new AppError("Internal server error", 500));
-    }
+    } */
   },
 );
 

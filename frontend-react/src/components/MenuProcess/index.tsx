@@ -49,7 +49,7 @@ export const MenuProcess = ({
   if (admin) {
     return (
       <Styled.Wrapper>
-        <Link to={`/admin/${setor}/${id}`}>
+        <Link to={`/admin/setor/${setor}/${id}`}>
           <MenuTitleProcess title={title} />
           <MenuDescriptionProcess />
         </Link>

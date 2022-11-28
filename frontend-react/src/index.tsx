@@ -17,6 +17,7 @@ import { Admin } from "./templates/Admin";
 import { AdminSetor } from "./templates/AdminSetor";
 import { AdminCreateProcess } from "./templates/AdminCreateProcess";
 import { AdmninEditProcess } from "./templates/AdminEditProcess";
+import { AdminProcesso } from "./templates/AdminProcesso";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
@@ -35,7 +36,7 @@ root.render(
           <Route path="/admin/auth" element={<LoginTemplate />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/setor/:setor" element={<AdminSetor />} />
-          <Route path="/admin/setor/:setor" element={<AdminSetor />} />
+          <Route path="/admin/setor/:setor/:id" element={<AdminProcesso />} />
           <Route
             path="/admin/setor/:setor/new"
             element={<AdminCreateProcess />}

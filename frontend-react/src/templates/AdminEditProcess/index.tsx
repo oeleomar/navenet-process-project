@@ -72,12 +72,11 @@ export const AdmninEditProcess = ({ title }: AdmninEditProcessProps) => {
     };
 
     try {
-      const result = await axios.put(
+      await axios.put(
         `${configUrl.url}${configUrl.slugProcess}${params.id}`,
         data,
         configHeaders,
       );
-      console.log(result);
       alert("Processo atualizado com sucesso");
     } catch (e) {
       console.log(e);

@@ -8,30 +8,27 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export class UpdateProcessController {
-  async handle(id, body, files) {
+  async handle(req, res, id) {
     //Puxar processo antigo
     const process = await Process.findById(id);
-    if (!process) return new AppError("Processo não encontrado", 404);
-
-    //Remover video antigo
+    if (!process)
+      return res.status(404).json({ msg: "Processo não encontrado" });
 
     //Verificar dados
-    const { ativo, setor, tipo, titulo, descricao } = body;
-    const realDescription = JSON.parse(descricao).data;
+    const { ativo, setor, tipo, titulo, descricao } = req.body;
 
     if (!setor || !tipo || !titulo) {
-      return new AppError("Informações não enviadas");
+      return res.status(422).json({ msg: "Informações não enviadas" });
     }
 
     //Montar documentos antigos
-    if (Object.keys(files).length > 0) {
+    if (Object.keys(req.files).length > 0) {
       const documentosAntigos = [
         ...process.documentosAntigos,
         process.documento,
       ];
-
-      const documento = files.file ? files.file[0].filename : null;
-      const video = files.video ? files.video[0].filename : null;
+      const documento = req.files.file ? req.files.file[0].filename : null;
+      const video = req.files.video ? req.files.video[0].filename : null;
 
       if (video) {
         const { video: videoAntigo } = process;
@@ -49,63 +46,78 @@ export class UpdateProcessController {
           );
       }
 
-      if (documento && video) {
-        const newProcess = await Process.updateOne(
-          { id },
-          {
-            ativo,
-            setor,
-            tipo,
-            titulo,
-            descricao: realDescription,
-            video,
-            documento,
-            documentosAntigos,
-          },
-        );
+      try {
+        if (documento && video) {
+          const documentosAntigos = [
+            ...process.documentosAntigos,
+            process.documento,
+          ];
+          const newProcess = await Process.findByIdAndUpdate(
+            { _id: id },
+            {
+              ativo,
+              setor,
+              tipo,
+              titulo,
+              descricao,
+              video,
+              documento,
+              documentosAntigos,
+            },
+          );
+          return res.status(200).json({ msg: "Atualizado com sucesso" });
+        } else if (documento && !video) {
+          const documentosAntigos = [
+            ...process.documentosAntigos,
+            process.documento,
+          ];
 
-        return newProcess;
-      } else if (documento) {
-        const newProcess = await Process.updateOne(
-          { id },
-          {
-            ativo,
-            setor,
-            tipo,
-            titulo,
-            descricao: realDescription,
-            documento,
-            documentosAntigos,
-          },
-        );
-
-        return newProcess;
-      } else {
-        const newProcess = await Process.updateOne(
-          { id },
-          {
-            ativo,
-            setor,
-            tipo,
-            titulo,
-            descricao: realDescription,
-            video,
-          },
-        );
+          const newProcess = await Process.findByIdAndUpdate(
+            { _id: id },
+            {
+              ativo,
+              setor,
+              tipo,
+              titulo,
+              descricao,
+              documento,
+              documentosAntigos,
+            },
+          );
+          return res.status(200).json({ msg: "Atualizado com sucesso" });
+        } else if (video && !documento) {
+          const newProcess = await Process.findByIdAndUpdate(
+            { _id: id },
+            {
+              ativo,
+              setor,
+              tipo,
+              titulo,
+              descricao,
+              video,
+            },
+          );
+          return res.status(200).json({ msg: "Atualizado com sucesso" });
+        }
+      } catch (e) {
+        return res.status(500).json({ msg: "Internal server error" });
       }
     }
 
-    const newProcess = await Process.updateOne(
-      { id },
-      {
-        ativo,
-        setor,
-        tipo,
-        titulo,
-        descricao: realDescription,
-      },
-    );
-
-    return newProcess;
+    try {
+      const newProcess = await Process.findByIdAndUpdate(
+        { _id: id },
+        {
+          ativo,
+          setor,
+          tipo,
+          titulo,
+          descricao,
+        },
+      );
+      return res.status(200).json({ msg: "Atualizado com sucesso" });
+    } catch (error) {
+      return res.status(500).json({ msg: "Internal server error" });
+    }
   }
 }
