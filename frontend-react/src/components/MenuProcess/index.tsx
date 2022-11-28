@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AdminDeleteTool } from "../AdminDeleteTool";
 import { AdminEditTool } from "../AdminEditTool";
 import { MenuDescriptionProcess } from "../MenuDescriptionProcess";
@@ -24,6 +24,7 @@ export const MenuProcess = ({
   id,
 }: MenuProcessProps) => {
   const [deleted, setDeleted] = useState(false);
+  const params = useParams();
 
   const handleDelete = async (e: any) => {
     const token = localStorage.getItem("token");
@@ -33,14 +34,11 @@ export const MenuProcess = ({
       },
     };
     try {
-      const result = await axios.delete(
-        config.url + config.slugProcess + id,
-        configHeaders,
-      );
+      await axios.delete(config.url + config.slugProcess + id, configHeaders);
       setDeleted(true);
       alert("Processo apagado com sucesso");
     } catch (e) {
-      console.log(e);
+      alert("Internal server error, tente mais tarde");
     }
   };
 
@@ -56,7 +54,9 @@ export const MenuProcess = ({
           <MenuDescriptionProcess />
         </Link>
         <div className="container-tools">
-          <AdminEditTool />
+          <Link to={`/admin/setor/${params.setor}/${id}/edit`}>
+            <AdminEditTool />
+          </Link>
           <AlertDialog.Root>
             <AlertDialog.Trigger>
               <AdminDeleteTool />

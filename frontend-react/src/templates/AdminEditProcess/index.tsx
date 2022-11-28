@@ -1,19 +1,26 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Upload } from "@styled-icons/bootstrap/Upload";
 
 import * as Styled from "./styles";
-import { SectionComponent } from "../../components/SectionComponent";
-import { TitleComponent } from "../../components/TitleComponent";
-import { GoBackSetor } from "../../components/GoBackSetor";
-import React, { useState } from "react";
-import { Editor } from "../../components/Editor";
-import { ProcessOptionsContainer } from "../../components/ProcessOptionsContainer";
-import axios from "axios";
 import configUrl from "../../config/index";
 import { config as editorConfig } from "../../config/editor";
 
-export const AdminCreateProcess = () => {
+import { GoBackSetor } from "../../components/GoBackSetor";
+import { SectionComponent } from "../../components/SectionComponent";
+import { TitleComponent } from "../../components/TitleComponent";
+import { ProcessOptionsContainer } from "../../components/ProcessOptionsContainer";
+import { Editor } from "../../components/Editor";
+import config from "../../config/index";
+
+export type AdmninEditProcessProps = {
+  title?: string;
+};
+
+export const AdmninEditProcess = ({ title }: AdmninEditProcessProps) => {
   const params = useParams();
+  const [data, setData] = useState<any>(null);
   const [video, setVideo] = useState();
   const [documento, setDocumento] = useState();
   const [content, setContent] = useState("");
@@ -21,7 +28,25 @@ export const AdminCreateProcess = () => {
   const [checked, setChecked] = useState(true);
   const [author, setAuthor] = useState("");
 
-  const handleSubmit = async (e) => {
+  useEffect(() => {
+    const fetData = async () => {
+      try {
+        const data = await (
+          await axios(
+            `${config.url}${config.slugProcess}${params.setor}/${params.id}`,
+          )
+        ).data;
+        setContent(data.descricao[0]);
+        setTitulo(data.titulo);
+        setData(data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetData();
+  }, [params.id, params.setor]);
+
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     if (titulo.length === 0 || author.length === 0)
@@ -47,30 +72,39 @@ export const AdminCreateProcess = () => {
     };
 
     try {
-      const result = await axios.post(
-        `${configUrl.url}${configUrl.slugProcess}`,
+      const result = await axios.put(
+        `${configUrl.url}${configUrl.slugProcess}${params.id}`,
         data,
         configHeaders,
       );
       console.log(result);
-      alert("Processo criado com sucesso");
+      alert("Processo atualizado com sucesso");
     } catch (e) {
-      alert(`Algo saiu errado: ${e.response.data.error.message}`);
+      console.log(e);
+      alert(`Algo saiu errado`);
     }
   };
+
+  if (!data) {
+    return (
+      <SectionComponent>
+        <h1>Erro</h1>
+      </SectionComponent>
+    );
+  }
 
   return (
     <Styled.Wrapper
       onSubmit={handleSubmit}
-      encType="multipart/form-data"
       action="#"
+      encType="multipart/form-data"
     >
       <SectionComponent>
         <Styled.MainContainer>
           <Link to={`/admin/setor/${params.setor}`}>
             <GoBackSetor />
           </Link>
-          <TitleComponent title="Novo Upload" />
+          <TitleComponent title="Editar processo" />
           <Styled.ButtonAdd type="submit">
             <Upload size={16} />
             Enviar
@@ -98,28 +132,61 @@ export const AdminCreateProcess = () => {
           <Styled.ContainerOptions>
             <ProcessOptionsContainer>
               <Styled.OptionTitle>Visibilidade</Styled.OptionTitle>
-              <div>
-                <Styled.OptionInputRadio
-                  type="radio"
-                  name="visibility"
-                  id="visible"
-                  defaultChecked
-                  onClick={() => setChecked(true)}
-                />
-                <Styled.OptionLabel htmlFor="visible">
-                  Visivel
-                </Styled.OptionLabel>
-              </div>
-              <div>
-                <Styled.OptionInputRadio
-                  type="radio"
-                  name="visibility"
-                  value="Oculto"
-                  id="ocult"
-                  onClick={() => setChecked(false)}
-                />
-                <Styled.OptionLabel htmlFor="ocult">Oculto</Styled.OptionLabel>
-              </div>
+              {data.ativo ? (
+                <div>
+                  <Styled.OptionInputRadio
+                    type="radio"
+                    name="visibility"
+                    id="visible"
+                    defaultChecked
+                    onClick={() => setChecked(true)}
+                  />
+                  <Styled.OptionLabel htmlFor="visible">
+                    Visivel
+                  </Styled.OptionLabel>
+                </div>
+              ) : (
+                <div>
+                  <Styled.OptionInputRadio
+                    type="radio"
+                    name="visibility"
+                    id="visible"
+                    onClick={() => setChecked(true)}
+                  />
+                  <Styled.OptionLabel htmlFor="visible">
+                    Visivel
+                  </Styled.OptionLabel>
+                </div>
+              )}
+
+              {data.ativo ? (
+                <div>
+                  <Styled.OptionInputRadio
+                    type="radio"
+                    name="visibility"
+                    value="Oculto"
+                    id="ocult"
+                    onClick={() => setChecked(false)}
+                  />
+                  <Styled.OptionLabel htmlFor="ocult">
+                    Oculto
+                  </Styled.OptionLabel>
+                </div>
+              ) : (
+                <div>
+                  <Styled.OptionInputRadio
+                    type="radio"
+                    name="visibility"
+                    value="Oculto"
+                    id="ocult"
+                    defaultChecked
+                    onClick={() => setChecked(false)}
+                  />
+                  <Styled.OptionLabel htmlFor="ocult">
+                    Oculto
+                  </Styled.OptionLabel>
+                </div>
+              )}
             </ProcessOptionsContainer>
 
             <ProcessOptionsContainer>
@@ -132,7 +199,7 @@ export const AdminCreateProcess = () => {
                 type="file"
                 id="archiveVideo"
                 name="video"
-                onChange={(e) => {
+                onChange={(e: any) => {
                   if (e.target.files.length > 0) setVideo(e.target.files[0]);
                 }}
               />
@@ -147,7 +214,7 @@ export const AdminCreateProcess = () => {
                 type="file"
                 id="archiveDocument"
                 name="file"
-                onChange={(e) => {
+                onChange={(e: any) => {
                   if (e.target.files.length > 0)
                     setDocumento(e.target.files[0]);
                 }}
