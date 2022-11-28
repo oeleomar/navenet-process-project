@@ -1,9 +1,16 @@
 export const paths = [
-  { slug: "suporte", pathName: "Suporte" },
-  { slug: "suporte2", pathName: "Suporte 2" },
-  { slug: "financeiro", pathName: "Financeiro" },
+  { slug: "almoxerifado", pathName: "Almoxarifado" },
   { slug: "comercial", pathName: "Comercial" },
+  { slug: "financeiro", pathName: "Financeiro" },
   { slug: "tecnico", pathName: "Técnico" },
+  { slug: "suporte", pathName: "Suporte" },
+  { slug: "suporte2", pathName: "Suporte II" },
+  { slug: "tecnico", pathName: "Técnico" },
+  { slug: "cancelamento", pathName: "Cancelamento" },
+  { slug: "gestaodequalidade", pathName: "Gestão de Qualidade" },
+  { slug: "noc", pathName: "NOC" },
+  { slug: "posvendas", pathName: "Pós-vendas" },
+  { slug: "rh", pathName: "RH" },
 ];
 
 export const pathsNext = [

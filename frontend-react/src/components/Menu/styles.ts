@@ -5,5 +5,8 @@ export const Nav = styled.nav`
 `;
 
 export const Ul = styled.ul`
-  ${({ theme }) => css``}
+  ${({ theme }) => css`
+    max-height: 90vh;
+    overflow: auto;
+  `}
 `;
