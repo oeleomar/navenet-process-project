@@ -16,6 +16,12 @@ export type AdminSetorProps = {
 export const AdminSetor = ({ title }: AdminSetorProps) => {
   const param = useParams();
   const [data, setData] = useState<DataSetor[] | null>([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return navigate("/admin/auth");
+  }, [navigate]);
 
   useEffect(() => {
     const fetchData = async () => {

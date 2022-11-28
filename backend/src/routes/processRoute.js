@@ -19,20 +19,23 @@ const updateProcessController = new UpdateProcessController();
 const deleteProcessController = new DeleteProcessController();
 const getSingleProcessController = new GetSingleProcessController();
 
+const upload = multer(multerConfig).fields([
+  { name: "file", maxCount: 1 },
+  { name: "video", maxCount: 1 },
+]);
+
 //Create
-processRoute.post(
-  "/",
-  checkToken,
-  multer(multerConfig).fields([
-    { name: "file", maxCount: 1 },
-    { name: "video", maxCount: 1 },
-  ]),
-  async (req, res) => {
+processRoute.post("/", async (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) {
+      return res.status(400).send({ msg: err.message });
+    }
     if (req.validationFile) {
       if (req.files.file) removeFiles(req.files.file[0].path);
       if (req.files.video) removeFiles(req.files.video[0].path);
       return res.status(422).json({ error: req.validationFile });
     }
+
     try {
       const process = await createProcessController.handle(req.body, req.files);
       if (process instanceof AppError) {
@@ -45,8 +48,8 @@ processRoute.post(
     } catch (e) {
       return res.status(500).json(new AppError("Internal server error", 500));
     }
-  },
-);
+  });
+});
 
 //Read one setor
 processRoute.get("/:setor", async (req, res) => {
@@ -69,14 +72,11 @@ processRoute.get("/:setor/:id", async (req, res) => {
 });
 
 //Update
-processRoute.put(
-  "/:id",
-  checkToken,
-  multer(multerConfig).fields([
-    { name: "file", maxCount: 1 },
-    { name: "video", maxCount: 1 },
-  ]),
-  async (req, res) => {
+processRoute.put("/:id", async (req, res) => {
+  upload(req, res, async (err) => {
+    if (err) {
+      return res.status(400).send({ msg: err.message });
+    }
     if (req.validationFile) {
       if (req.files.file) removeFiles(req.files.file[0].path);
       if (req.files.video) removeFiles(req.files.video[0].path);
@@ -85,25 +85,8 @@ processRoute.put(
 
     const { id } = req.params;
     await updateProcessController.handle(req, res, id);
-    /* try {
-      const data = await updateProcessController.handle(
-        id,
-        req.body,
-        req.files,
-      );
-
-      if (data instanceof AppError) {
-        if (req.files.file) removeFiles(req.files.file[0].path);
-        if (req.files.video) removeFiles(req.files.video[0].path);
-        return res.status(data.statusCode).json(data);
-      }
-
-      return res.json({ data: "Atualizado com sucesso", statusCode: 200 });
-    } catch (e) {
-      return res.status(500).json(new AppError("Internal server error", 500));
-    } */
-  },
-);
+  });
+});
 
 //Delete
 processRoute.delete("/:id", checkToken, async (req, res) => {

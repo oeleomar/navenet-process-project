@@ -1,7 +1,7 @@
 export const config = {
   readonly: false,
   height: 300,
-  placeholder: "Olá mundo",
+  placeholder: "Digite sua mensagem",
   style: {
     font: "16px Roboto",
   },

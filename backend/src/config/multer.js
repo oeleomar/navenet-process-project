@@ -30,7 +30,10 @@ const multerConfig = {
     if (allowedMimes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      req.validationFile = { message: "Format invalid", statusCode: 422 };
+      req.validationFile = {
+        msg: "Formato de arquivo Inválido",
+        statusCode: 422,
+      };
       cb(null, false, new Error("goes wrong on the mimetype"));
     }
   },

@@ -1,11 +1,11 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Upload } from "@styled-icons/bootstrap/Upload";
 
 import * as Styled from "./styles";
 import { SectionComponent } from "../../components/SectionComponent";
 import { TitleComponent } from "../../components/TitleComponent";
 import { GoBackSetor } from "../../components/GoBackSetor";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Editor } from "../../components/Editor";
 import { ProcessOptionsContainer } from "../../components/ProcessOptionsContainer";
 import axios from "axios";
@@ -14,12 +14,19 @@ import { config as editorConfig } from "../../config/editor";
 
 export const AdminCreateProcess = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [video, setVideo] = useState();
   const [documento, setDocumento] = useState();
   const [content, setContent] = useState("");
   const [titulo, setTitulo] = useState("");
   const [checked, setChecked] = useState(true);
   const [author, setAuthor] = useState("");
+  const [token, setToken] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return navigate("/admin/auth");
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -55,9 +62,19 @@ export const AdminCreateProcess = () => {
       console.log(result);
       alert("Processo criado com sucesso");
     } catch (e) {
-      alert(`Algo saiu errado: ${e.response.data.error.message}`);
+      if (e.response.data.msg === "Token inválido") {
+        setToken(true);
+      }
+      alert(`Algo saiu errado: ${e.response.data.msg}`);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      alert("Token inválido, faça o login novamente");
+      navigate("/admin/auth");
+    }
+  }, [token, navigate]);
 
   return (
     <Styled.Wrapper
@@ -126,7 +143,7 @@ export const AdminCreateProcess = () => {
               <Styled.OptionTitle>Vídeo</Styled.OptionTitle>
               <Styled.LabelFile htmlFor="archiveVideo">
                 <Upload size={15} />
-                {video ? "Selecionado" : "Enviar Vídeo"}
+                {video ? "Anexado" : "Enviar Vídeo"}
               </Styled.LabelFile>
               <Styled.InputArchive
                 type="file"
@@ -141,7 +158,7 @@ export const AdminCreateProcess = () => {
               <Styled.OptionTitle>Documento</Styled.OptionTitle>
               <Styled.LabelFile htmlFor="archiveDocument">
                 <Upload size={15} />
-                {documento ? "Selecionado" : "Enviar Documento"}
+                {documento ? "Anexado" : "Enviar Documento"}
               </Styled.LabelFile>
               <Styled.InputArchive
                 type="file"

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Upload } from "@styled-icons/bootstrap/Upload";
 
 import * as Styled from "./styles";
@@ -15,18 +15,25 @@ import { Editor } from "../../components/Editor";
 import config from "../../config/index";
 
 export type AdmninEditProcessProps = {
-  title?: string;
+  title?: string,
 };
 
 export const AdmninEditProcess = ({ title }: AdmninEditProcessProps) => {
   const params = useParams();
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState(null);
   const [video, setVideo] = useState();
   const [documento, setDocumento] = useState();
   const [content, setContent] = useState("");
   const [titulo, setTitulo] = useState("");
   const [checked, setChecked] = useState(true);
   const [author, setAuthor] = useState("");
+  const [token, setToken] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return navigate("/admin/auth");
+  }, [navigate]);
 
   useEffect(() => {
     const fetData = async () => {
@@ -44,7 +51,12 @@ export const AdmninEditProcess = ({ title }: AdmninEditProcessProps) => {
       }
     };
     fetData();
-  }, [params.id, params.setor]);
+
+    if (token) {
+      alert("Token inválido, faça o login novamente");
+      navigate("/admin/auth");
+    }
+  }, [params.id, params.setor, navigate, token]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -79,8 +91,10 @@ export const AdmninEditProcess = ({ title }: AdmninEditProcessProps) => {
       );
       alert("Processo atualizado com sucesso");
     } catch (e) {
-      console.log(e);
-      alert(`Algo saiu errado`);
+      if (e.response.data.msg === "Token inválido") {
+        setToken(true);
+      }
+      alert(`Algo saiu errado: ${e.response.data.msg}`);
     }
   };
 
