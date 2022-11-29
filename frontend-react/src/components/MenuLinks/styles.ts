@@ -12,14 +12,13 @@ export const Li = styled.li<ActiveProps>`
     transition: all 0.3s ease-in-out;
     background-color: ${active ? theme.colors.redTransparent : ""};
     > a {
-      color: ${active ? theme.colors.white : "white"};
+      color: ${active ? theme.colors.white : theme.colors.black};
       text-decoration: none;
       display: block;
       width: 100%;
       padding: 2rem 0;
       font-size: ${theme.font.sizes.small};
       text-align: start;
-      color: ${theme.colors.black};
     }
   `}
 `;
