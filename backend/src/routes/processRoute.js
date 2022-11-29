@@ -36,18 +36,7 @@ processRoute.post("/", async (req, res) => {
       return res.status(422).json({ error: req.validationFile });
     }
 
-    try {
-      const process = await createProcessController.handle(req.body, req.files);
-      if (process instanceof AppError) {
-        if (req.files && req.files.file) removeFiles(req.files.file[0].path);
-        if (req.files && req.files.video) removeFiles(req.files.video[0].path);
-        return res.status(400).json({ error: process });
-      }
-
-      return res.status(201).json(process);
-    } catch (e) {
-      return res.status(500).json(new AppError("Internal server error", 500));
-    }
+    await createProcessController.handle(req, res);
   });
 });
 

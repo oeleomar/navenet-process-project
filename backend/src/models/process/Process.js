@@ -10,6 +10,8 @@ const process = new mongoose.Schema({
   documentosAntigos: [String],
   video: String,
   author: String,
+  createdAt: String,
+  updatedAt: String,
 });
 
 export default mongoose.model("Process", process);

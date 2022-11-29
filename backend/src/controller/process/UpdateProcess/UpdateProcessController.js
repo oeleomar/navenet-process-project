@@ -21,6 +21,8 @@ export class UpdateProcessController {
       return res.status(422).json({ msg: "Informações não enviadas" });
     }
 
+    const date = new Date().toLocaleString("pt-BR", { dateStyle: "short" });
+
     //Montar documentos antigos
     if (Object.keys(req.files).length > 0) {
       const documentosAntigos = [
@@ -63,6 +65,7 @@ export class UpdateProcessController {
               video,
               documento,
               documentosAntigos,
+              updatedAt: date,
             },
           );
           return res.status(200).json({ msg: "Atualizado com sucesso" });
@@ -82,6 +85,7 @@ export class UpdateProcessController {
               descricao,
               documento,
               documentosAntigos,
+              updatedAt: date,
             },
           );
           return res.status(200).json({ msg: "Atualizado com sucesso" });
@@ -95,6 +99,8 @@ export class UpdateProcessController {
               titulo,
               descricao,
               video,
+
+              updatedAt: date,
             },
           );
           return res.status(200).json({ msg: "Atualizado com sucesso" });
@@ -113,6 +119,7 @@ export class UpdateProcessController {
           tipo,
           titulo,
           descricao,
+          updatedAt: date,
         },
       );
       return res.status(200).json({ msg: "Atualizado com sucesso" });
