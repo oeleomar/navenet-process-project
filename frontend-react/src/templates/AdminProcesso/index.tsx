@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Header } from "../../components/Header";
 import { Processo } from "../Processo";
 import * as Styled from "./styles";
 
@@ -15,5 +16,10 @@ export const AdminProcesso = ({ title }: AdminProcessoProps) => {
     if (!token) return navigate("/admin/auth");
   }, [navigate]);
 
-  return <Processo admin />;
+  return (
+    <>
+      <Header />
+      <Processo admin />
+    </>
+  );
 };

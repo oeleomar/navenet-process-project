@@ -2,7 +2,6 @@ export const paths = [
   { slug: "almoxerifado", pathName: "Almoxarifado" },
   { slug: "comercial", pathName: "Comercial" },
   { slug: "financeiro", pathName: "Financeiro" },
-  { slug: "tecnico", pathName: "Técnico" },
   { slug: "suporte", pathName: "Suporte" },
   { slug: "suporte2", pathName: "Suporte II" },
   { slug: "tecnico", pathName: "Técnico" },

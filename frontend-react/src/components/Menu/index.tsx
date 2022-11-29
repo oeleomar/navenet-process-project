@@ -24,6 +24,7 @@ export const Menu = () => {
             }
             pathName={path.pathName}
             key={`link__${path.pathName}`}
+            slug={path.slug}
           />
         ))}
       </Styled.Ul>

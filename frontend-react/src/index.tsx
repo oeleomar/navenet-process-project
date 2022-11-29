@@ -27,7 +27,7 @@ root.render(
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <GlobalStyles />
-        <Header />
+
         <Routes>
           <Route path="*" element={<Page404 />} />
           <Route path="/" element={<Home />} />

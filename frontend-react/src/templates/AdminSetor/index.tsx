@@ -8,6 +8,7 @@ import { TitleComponent } from "../../components/TitleComponent";
 import config from "../../config";
 import { DataSetor } from "../Setor";
 import * as Styled from "./styles";
+import { Header } from "../../components/Header";
 
 export type AdminSetorProps = {
   title?: string;
@@ -37,45 +38,56 @@ export const AdminSetor = ({ title }: AdminSetorProps) => {
 
   if (!data) {
     return (
-      <SectionComponent>
-        <TitleComponent title="Carregando..." />
-      </SectionComponent>
+      <>
+        <Header />
+        <SectionComponent>
+          <TitleComponent title="Carregando..." />
+        </SectionComponent>
+      </>
     );
   }
 
   if (data.length === 0) {
     return (
-      <SectionComponent>
-        <Styled.MainContainer>
-          <TitleComponent title="Nenhum processo encontrado" />
-          <Link to={`/admin/setor/${param.setor}/new`}>
-            <Styled.ButtonAdd>
-              <Upload size={16} />
-              NOVO UPLOAD
-            </Styled.ButtonAdd>
-          </Link>
-        </Styled.MainContainer>
-      </SectionComponent>
+      <>
+        <Header />
+        <SectionComponent>
+          <Styled.MainContainer>
+            <TitleComponent title="Nenhum processo encontrado" />
+            <Link to={`/admin/setor/${param.setor}/new`}>
+              <Styled.ButtonAdd>
+                <Upload size={16} />
+                NOVO UPLOAD
+              </Styled.ButtonAdd>
+            </Link>
+          </Styled.MainContainer>
+        </SectionComponent>
+      </>
     );
   }
 
   return (
-    <Styled.Wrapper>
-      <SectionComponent>
-        <Styled.MainContainer>
-          <TitleComponent title="Processos" />
-          <Link to={`/admin/setor/${param.setor}/new`}>
-            <Styled.ButtonAdd>
-              <Upload size={16} />
-              NOVO UPLOAD
-            </Styled.ButtonAdd>
-          </Link>
-        </Styled.MainContainer>
-        {data.map((val) => {
-          if (!val.ativo) return "";
-          return <MenuProcess title={val.titulo} key={val.id} {...val} admin />;
-        })}
-      </SectionComponent>
-    </Styled.Wrapper>
+    <>
+      <Header />
+      <Styled.Wrapper>
+        <SectionComponent>
+          <Styled.MainContainer>
+            <TitleComponent title="Processos" />
+            <Link to={`/admin/setor/${param.setor}/new`}>
+              <Styled.ButtonAdd>
+                <Upload size={16} />
+                NOVO UPLOAD
+              </Styled.ButtonAdd>
+            </Link>
+          </Styled.MainContainer>
+          {data.map((val) => {
+            if (!val.ativo) return "";
+            return (
+              <MenuProcess title={val.titulo} key={val.id} {...val} admin />
+            );
+          })}
+        </SectionComponent>
+      </Styled.Wrapper>
+    </>
   );
 };

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Header } from "../../components/Header";
 import { MenuProcess } from "../../components/MenuProcess";
 import { SectionComponent } from "../../components/SectionComponent";
 import { TitleComponent } from "../../components/TitleComponent";
@@ -32,29 +33,38 @@ export const Setor = () => {
 
   if (!data) {
     return (
-      <SectionComponent>
-        <TitleComponent title="Carregando..." />
-      </SectionComponent>
+      <>
+        <Header />
+        <SectionComponent>
+          <TitleComponent title="Carregando..." />
+        </SectionComponent>
+      </>
     );
   }
 
   if (data.length === 0) {
     return (
-      <SectionComponent>
-        <TitleComponent title="Nenhum dado cadastrado" />
-      </SectionComponent>
+      <>
+        <Header />
+        <SectionComponent>
+          <TitleComponent title="Nenhum dado cadastrado" />
+        </SectionComponent>
+      </>
     );
   }
 
   return (
-    <Styled.Wrapper>
-      <SectionComponent>
-        <TitleComponent title="Processos" />
-        {data.map((val) => {
-          if (!val.ativo) return "";
-          return <MenuProcess title={val.titulo} key={val.id} {...val} />;
-        })}
-      </SectionComponent>
-    </Styled.Wrapper>
+    <>
+      <Header />
+      <Styled.Wrapper>
+        <SectionComponent>
+          <TitleComponent title="Processos" />
+          {data.map((val) => {
+            if (!val.ativo) return "";
+            return <MenuProcess title={val.titulo} key={val.id} {...val} />;
+          })}
+        </SectionComponent>
+      </Styled.Wrapper>
+    </>
   );
 };

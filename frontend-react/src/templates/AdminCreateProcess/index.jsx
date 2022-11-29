@@ -11,6 +11,7 @@ import { ProcessOptionsContainer } from "../../components/ProcessOptionsContaine
 import axios from "axios";
 import configUrl from "../../config/index";
 import { config as editorConfig } from "../../config/editor";
+import { Header } from "../../components/Header";
 
 export const AdminCreateProcess = () => {
   const params = useParams();
@@ -77,111 +78,116 @@ export const AdminCreateProcess = () => {
   }, [token, navigate]);
 
   return (
-    <Styled.Wrapper
-      onSubmit={handleSubmit}
-      encType="multipart/form-data"
-      action="#"
-    >
-      <SectionComponent>
-        <Styled.MainContainer>
-          <Link to={`/admin/setor/${params.setor}`}>
-            <GoBackSetor />
-          </Link>
-          <TitleComponent title="Novo Upload" />
-          <Styled.ButtonAdd type="submit">
-            <Upload size={16} />
-            Enviar
-          </Styled.ButtonAdd>
-        </Styled.MainContainer>
-        <Styled.ContainerAdd>
-          <Styled.ContainerDescription>
-            <Styled.LabelRequired>Título</Styled.LabelRequired>
-            <Styled.Input
-              type="text"
-              name="titulo"
-              id="titulo"
-              value={titulo}
-              onChange={(e) => setTitulo(e.target.value)}
-            />
-            <Styled.Label>Conteúdo</Styled.Label>
-            <Styled.Editor>
-              <Editor
-                content={content}
-                setContent={setContent}
-                config={editorConfig}
+    <>
+      <Header />
+      <Styled.Wrapper
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+        action="#"
+      >
+        <SectionComponent>
+          <Styled.MainContainer>
+            <Link to={`/admin/setor/${params.setor}`}>
+              <GoBackSetor />
+            </Link>
+            <TitleComponent title="Novo Upload" />
+            <Styled.ButtonAdd type="submit">
+              <Upload size={16} />
+              Enviar
+            </Styled.ButtonAdd>
+          </Styled.MainContainer>
+          <Styled.ContainerAdd>
+            <Styled.ContainerDescription>
+              <Styled.LabelRequired>Título</Styled.LabelRequired>
+              <Styled.Input
+                type="text"
+                name="titulo"
+                id="titulo"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
               />
-            </Styled.Editor>
-          </Styled.ContainerDescription>
-          <Styled.ContainerOptions>
-            <ProcessOptionsContainer>
-              <Styled.OptionTitle>Visibilidade</Styled.OptionTitle>
-              <div>
-                <Styled.OptionInputRadio
-                  type="radio"
-                  name="visibility"
-                  id="visible"
-                  defaultChecked
-                  onClick={() => setChecked(true)}
+              <Styled.Label>Conteúdo</Styled.Label>
+              <Styled.Editor>
+                <Editor
+                  content={content}
+                  setContent={setContent}
+                  config={editorConfig}
                 />
-                <Styled.OptionLabel htmlFor="visible">
-                  Visivel
-                </Styled.OptionLabel>
-              </div>
-              <div>
-                <Styled.OptionInputRadio
-                  type="radio"
-                  name="visibility"
-                  value="Oculto"
-                  id="ocult"
-                  onClick={() => setChecked(false)}
-                />
-                <Styled.OptionLabel htmlFor="ocult">Oculto</Styled.OptionLabel>
-              </div>
-            </ProcessOptionsContainer>
+              </Styled.Editor>
+            </Styled.ContainerDescription>
+            <Styled.ContainerOptions>
+              <ProcessOptionsContainer>
+                <Styled.OptionTitle>Visibilidade</Styled.OptionTitle>
+                <div>
+                  <Styled.OptionInputRadio
+                    type="radio"
+                    name="visibility"
+                    id="visible"
+                    defaultChecked
+                    onClick={() => setChecked(true)}
+                  />
+                  <Styled.OptionLabel htmlFor="visible">
+                    Visivel
+                  </Styled.OptionLabel>
+                </div>
+                <div>
+                  <Styled.OptionInputRadio
+                    type="radio"
+                    name="visibility"
+                    value="Oculto"
+                    id="ocult"
+                    onClick={() => setChecked(false)}
+                  />
+                  <Styled.OptionLabel htmlFor="ocult">
+                    Oculto
+                  </Styled.OptionLabel>
+                </div>
+              </ProcessOptionsContainer>
 
-            <ProcessOptionsContainer>
-              <Styled.OptionTitle>Vídeo</Styled.OptionTitle>
-              <Styled.LabelFile htmlFor="archiveVideo">
-                <Upload size={15} />
-                {video ? "Anexado" : "Enviar Vídeo"}
-              </Styled.LabelFile>
-              <Styled.InputArchive
-                type="file"
-                id="archiveVideo"
-                name="video"
-                onChange={(e) => {
-                  if (e.target.files.length > 0) setVideo(e.target.files[0]);
-                }}
-              />
-            </ProcessOptionsContainer>
-            <ProcessOptionsContainer>
-              <Styled.OptionTitle>Documento</Styled.OptionTitle>
-              <Styled.LabelFile htmlFor="archiveDocument">
-                <Upload size={15} />
-                {documento ? "Anexado" : "Enviar Documento"}
-              </Styled.LabelFile>
-              <Styled.InputArchive
-                type="file"
-                id="archiveDocument"
-                name="file"
-                onChange={(e) => {
-                  if (e.target.files.length > 0)
-                    setDocumento(e.target.files[0]);
-                }}
-              />
-            </ProcessOptionsContainer>
-            <ProcessOptionsContainer>
-              <Styled.OptionTitle>Author</Styled.OptionTitle>
-              <Styled.InputOptions
-                name="author"
-                id="author"
-                value={author}
-                onChange={(e) => setAuthor(e.target.value)}
-              />
-            </ProcessOptionsContainer>
-          </Styled.ContainerOptions>
-        </Styled.ContainerAdd>
-      </SectionComponent>
-    </Styled.Wrapper>
+              <ProcessOptionsContainer>
+                <Styled.OptionTitle>Vídeo</Styled.OptionTitle>
+                <Styled.LabelFile htmlFor="archiveVideo">
+                  <Upload size={15} />
+                  {video ? "Anexado" : "Enviar Vídeo"}
+                </Styled.LabelFile>
+                <Styled.InputArchive
+                  type="file"
+                  id="archiveVideo"
+                  name="video"
+                  onChange={(e) => {
+                    if (e.target.files.length > 0) setVideo(e.target.files[0]);
+                  }}
+                />
+              </ProcessOptionsContainer>
+              <ProcessOptionsContainer>
+                <Styled.OptionTitle>Documento</Styled.OptionTitle>
+                <Styled.LabelFile htmlFor="archiveDocument">
+                  <Upload size={15} />
+                  {documento ? "Anexado" : "Enviar Documento"}
+                </Styled.LabelFile>
+                <Styled.InputArchive
+                  type="file"
+                  id="archiveDocument"
+                  name="file"
+                  onChange={(e) => {
+                    if (e.target.files.length > 0)
+                      setDocumento(e.target.files[0]);
+                  }}
+                />
+              </ProcessOptionsContainer>
+              <ProcessOptionsContainer>
+                <Styled.OptionTitle>Author</Styled.OptionTitle>
+                <Styled.InputOptions
+                  name="author"
+                  id="author"
+                  value={author}
+                  onChange={(e) => setAuthor(e.target.value)}
+                />
+              </ProcessOptionsContainer>
+            </Styled.ContainerOptions>
+          </Styled.ContainerAdd>
+        </SectionComponent>
+      </Styled.Wrapper>
+    </>
   );
 };

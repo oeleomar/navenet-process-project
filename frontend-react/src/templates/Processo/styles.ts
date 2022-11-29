@@ -58,7 +58,7 @@ export const Video = styled.span<SpanCovered>`
     color: ${covered ? theme.colors.darkWhite : theme.colors.primary};
     font-size: ${theme.font.sizes.small};
     font-weight: 700;
-    margin-left: 18px;
+    margin-left: 12px;
     transition: all 0.3s ease-in-out;
     z-index: -1;
   `}

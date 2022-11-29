@@ -1,4 +1,5 @@
 import { DescriptionComponent } from "../../components/DescriptionComponent";
+import { Header } from "../../components/Header";
 import { SectionComponent } from "../../components/SectionComponent";
 import { TitleComponent } from "../../components/TitleComponent";
 import * as Styled from "./styles";
@@ -9,11 +10,15 @@ export type HomeProps = {
 
 export const Home = ({ title }: HomeProps) => {
   return (
-    <Styled.Wrapper>
-      <SectionComponent>
-        <TitleComponent title="Home" />
-        <DescriptionComponent description="Selecione um setor para mostrar os processos relacionados a ele." />
-      </SectionComponent>
-    </Styled.Wrapper>
+    <>
+      <Header />
+
+      <Styled.Wrapper>
+        <SectionComponent>
+          <TitleComponent title="Home" />
+          <DescriptionComponent description="Selecione um setor para mostrar os processos relacionados a ele." />
+        </SectionComponent>
+      </Styled.Wrapper>
+    </>
   );
 };

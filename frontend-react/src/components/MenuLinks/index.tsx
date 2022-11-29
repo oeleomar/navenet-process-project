@@ -1,23 +1,29 @@
-import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+
 import * as Styled from "./styles";
 
 export type MenuLinksProps = {
   href: string;
   pathName: string;
+  slug?: string;
 };
 
-export const MenuLinks = ({ href, pathName }: MenuLinksProps) => {
-  const handleClick = (e: any) => {
-    const childs = e.target.parentNode.parentNode.childNodes;
-    for (let i = 0; i < childs.length; i++) {
-      childs[i].classList.remove("active");
+export const MenuLinks = ({ href, pathName, slug = "" }: MenuLinksProps) => {
+  const params = useParams();
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    if (slug === params.setor) {
+      setActive(true);
+    } else {
+      setActive(false);
     }
-    e.target.parentNode.classList.add("active");
-  };
+  }, [params, slug]);
 
   return (
-    <Styled.Li>
-      <Link to={href} onClick={handleClick}>
+    <Styled.Li active={active}>
+      <Link to={href}>
         {"> "} {pathName}
       </Link>
     </Styled.Li>

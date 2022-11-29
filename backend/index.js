@@ -17,7 +17,7 @@ app.use(cors());
 app.use(helmet());
 
 app.use(router);
-mongoose.connect("mongodb://localhost:27017/process", () => {
+mongoose.connect(process.env.URL_DATABASE + process.env.NAME_DATABASE, () => {
   console.log("Conectado");
-  app.listen(3001);
+  app.listen(3010);
 });

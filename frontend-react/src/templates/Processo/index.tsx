@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { ContentSection } from "../../components/ContentSection";
 import { GoBackSetor } from "../../components/GoBackSetor";
+import { Header } from "../../components/Header";
 import { PopComponent } from "../../components/PopComponent";
 import { SectionComponent } from "../../components/SectionComponent";
 import { ProcessProps, VideoComponent } from "../../components/VideoComponent";
@@ -45,51 +46,57 @@ export const Processo = ({ admin = false }) => {
 
   if (!data) {
     return (
-      <SectionComponent>
-        <ContentSection>
-          <Styled.H1error>
-            Processo não encontrado. Um erro ocorreu, entre em contato com o
-            Administrador
-            <Link to="/">Retornar para HOME</Link>
-          </Styled.H1error>
-        </ContentSection>
-      </SectionComponent>
+      <>
+        <Header />
+        <SectionComponent>
+          <ContentSection>
+            <Styled.H1error>
+              Processo não encontrado. Um erro ocorreu, entre em contato com o
+              Administrador
+              <Link to="/">Retornar para HOME</Link>
+            </Styled.H1error>
+          </ContentSection>
+        </SectionComponent>
+      </>
     );
   }
 
   return (
-    <Styled.Wrapper>
-      <SectionComponent>
-        <Styled.MenuOptions>
-          {admin ? (
-            <Link to={`/admin/setor/${setor}`}>
-              <GoBackSetor />
-            </Link>
-          ) : (
-            <Link to={`/setor/${setor}`}>
-              <GoBackSetor />
-            </Link>
-          )}
-          <Styled.Label>
-            <Styled.Video className="video" covered={covered}>
-              Video
-            </Styled.Video>
-            <Styled.Input
-              type="checkbox"
-              onChange={(e) => setCovered(!covered)}
-            />
-            <Styled.Span />
-            <Styled.Pop covered={!covered}>POP</Styled.Pop>
-          </Styled.Label>
-        </Styled.MenuOptions>
-        <ContentSection>
-          {state === "video" ? (
-            <VideoComponent {...(data as ProcessProps)} />
-          ) : (
-            <PopComponent {...(data as ProcessProps)} />
-          )}
-        </ContentSection>
-      </SectionComponent>
-    </Styled.Wrapper>
+    <>
+      <Header />
+      <Styled.Wrapper>
+        <SectionComponent>
+          <Styled.MenuOptions>
+            {admin ? (
+              <Link to={`/admin/setor/${setor}`}>
+                <GoBackSetor />
+              </Link>
+            ) : (
+              <Link to={`/setor/${setor}`}>
+                <GoBackSetor />
+              </Link>
+            )}
+            <Styled.Label>
+              <Styled.Video className="video" covered={covered}>
+                Tutorial
+              </Styled.Video>
+              <Styled.Input
+                type="checkbox"
+                onChange={(e) => setCovered(!covered)}
+              />
+              <Styled.Span />
+              <Styled.Pop covered={!covered}>DOC</Styled.Pop>
+            </Styled.Label>
+          </Styled.MenuOptions>
+          <ContentSection>
+            {state === "video" ? (
+              <VideoComponent {...(data as ProcessProps)} />
+            ) : (
+              <PopComponent {...(data as ProcessProps)} />
+            )}
+          </ContentSection>
+        </SectionComponent>
+      </Styled.Wrapper>
+    </>
   );
 };
